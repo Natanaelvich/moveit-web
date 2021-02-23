@@ -1,6 +1,6 @@
 <h1 align='center'> Moveit </h1>
 
-### Moveit Project Web ⚡️
+### Moveit Project Web
 
 ---
 
