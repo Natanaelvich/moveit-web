@@ -16,9 +16,17 @@
     $ cd PROJECT
     $ npm install
 
+or
+
+    $yarn
+
 ## Start & watch
 
     $ npm start
+
+or
+
+    $yarn start
 
 ## Languages & tools
 
