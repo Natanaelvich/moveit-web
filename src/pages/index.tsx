@@ -1,7 +1,8 @@
 import Head from 'next/head';
-import CompletedChanllanges from '../components/CompletedChanllanges';
+import CompletedChanllenges from '../components/CompletedChanllenges';
 import CountDown from '../components/CountDown';
 import ExperienceBar from '../components/ExperienceBar';
+import ChallengeBox from '../components/ChallengeBox';
 import Profile from '../components/Profile';
 import styles from '../styles/Home.module.css';
 
@@ -12,14 +13,15 @@ export default function Home() {
         <title>Início | moveit</title>
       </Head>
       <ExperienceBar />
-
       <section>
         <div>
           <Profile />
-          <CompletedChanllanges />
+          <CompletedChanllenges />
           <CountDown />
         </div>
-        <div />
+        <div>
+          <ChallengeBox />
+        </div>
       </section>
     </div>
   );
