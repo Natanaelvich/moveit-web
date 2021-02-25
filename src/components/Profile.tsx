@@ -1,7 +1,10 @@
 import React from 'react';
+import { useChallenge } from '../hooks/modules/ChallengeContext';
 import styles from '../styles/Profile.module.css';
 
 export default function Profile() {
+  const { level } = useChallenge();
+
   return (
     <div className={styles.container}>
       <img src="https://github.com/natanaelvich.png" alt="" />
@@ -10,7 +13,7 @@ export default function Profile() {
         <strong>Natanael da Silva Lima</strong>
         <p>
           <img src="icons/level.svg" alt="Level" />
-          level 1
+          level {level}
         </p>
       </div>
     </div>
