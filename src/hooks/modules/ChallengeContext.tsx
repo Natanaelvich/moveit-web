@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import challenges from '../../../challenges.json';
 
 interface Challenge {
@@ -15,6 +15,7 @@ interface ChallengeContextData {
   levelUp: () => void;
   startNewChallenge: () => void;
   resetChallenge: () => void;
+  completeChallenge: () => void;
   activeChallenge: Challenge | null;
 }
 
@@ -24,11 +25,15 @@ const ChallengeContext = createContext<ChallengeContextData>(
 
 const ChallengeProvider: React.FC = ({ children }) => {
   const [level, setLevel] = useState(1);
-  const [currenteExperience, setCurrenteExperience] = useState(30);
+  const [currenteExperience, setCurrenteExperience] = useState(0);
   const [challengesCompleted, setChallengesCompleted] = useState(0);
   const [activeChallenge, setActiveChallenge] = useState(null);
 
   const experienceToNextLevel = ((level + 1) * 4) ** 2;
+
+  useEffect(() => {
+    Notification.requestPermission();
+  }, []);
 
   function levelUp() {
     setLevel(level + 1);
@@ -43,8 +48,34 @@ const ChallengeProvider: React.FC = ({ children }) => {
     const challenge = challenges[radomChallengeIndex];
 
     setActiveChallenge(challenge);
+    if (Notification.permission === 'granted') {
+      new Audio('/notification.mp3').play();
+      new Notification('Novo desafio 🎉', {
+        body: `Valendo ${challenge.amount}xp`,
+        icon: '/favicon.png',
+      });
+    }
   }
 
+  function completeChallenge() {
+    if (!activeChallenge) {
+      return;
+    }
+
+    const { amount } = activeChallenge;
+
+    let finalExperience = currenteExperience + amount;
+
+    if (finalExperience >= experienceToNextLevel) {
+      finalExperience -= experienceToNextLevel;
+
+      levelUp();
+    }
+
+    setCurrenteExperience(finalExperience);
+    setActiveChallenge(null);
+    setChallengesCompleted(challengesCompleted + 1);
+  }
   return (
     <ChallengeContext.Provider
       value={{
@@ -56,6 +87,7 @@ const ChallengeProvider: React.FC = ({ children }) => {
         activeChallenge,
         resetChallenge,
         experienceToNextLevel,
+        completeChallenge,
       }}
     >
       {children}
