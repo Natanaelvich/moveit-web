@@ -1,9 +1,20 @@
 import React from 'react';
 import { useChallenge } from '../hooks/modules/ChallengeContext';
+import { useCountDown } from '../hooks/modules/CountDownContext';
 import styles from '../styles/ChallengeBox.module.css';
 
 export default function ChallengeBox() {
-  const { activeChallenge, resetChallenge } = useChallenge();
+  const { activeChallenge, resetChallenge, completeChallenge } = useChallenge();
+  const { stopCountDown } = useCountDown();
+
+  function handleChallengeSucceeded() {
+    completeChallenge();
+    stopCountDown();
+  }
+  function handleChallengeFailed() {
+    resetChallenge();
+    stopCountDown();
+  }
   return (
     <div className={styles.container}>
       {activeChallenge ? (
@@ -17,10 +28,12 @@ export default function ChallengeBox() {
           </main>
 
           <footer>
-            <button onClick={resetChallenge} type="button">
+            <button onClick={handleChallengeFailed} type="button">
               Falhei
             </button>
-            <button type="button">Completei</button>
+            <button onClick={handleChallengeSucceeded} type="button">
+              Completei
+            </button>
           </footer>
         </div>
       ) : (
