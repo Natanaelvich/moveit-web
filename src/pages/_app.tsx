@@ -1,12 +1,7 @@
-import AppProvider from '../hooks';
 import '../styles/global.css';
 
 function MyApp({ Component, pageProps }) {
-  return (
-    <AppProvider>
-      <Component {...pageProps} />
-    </AppProvider>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;
