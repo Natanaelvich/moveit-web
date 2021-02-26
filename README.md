@@ -28,11 +28,11 @@ or
 
 ## Start & watch
 
-    $ npm start
+    $ npm run dev
 
 or
 
-    $yarn start
+    $yarn dev
 
 ## Languages & tools
 
