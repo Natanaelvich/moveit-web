@@ -27,7 +27,7 @@ export default function Home({
         challengesCompleted={challengesCompleted}
       >
         <Head>
-          <title>Início | moveit</title>
+          <title>Moveit | mundotech</title>
         </Head>
         <ExperienceBar />
         <section>
